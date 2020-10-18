@@ -1,7 +1,7 @@
 const userData = { name: "test" };
 const axios = {
-  // get: url => new Promise((resolve) => resolve(jest.fn().mockImplementation(() => userData))),
   get: jest.fn(() => Promise.resolve({ data: userData })),
+  post: jest.fn(() => Promise.resolve({ data: {} }).catch((err) => err)),
 };
 
 export default axios;
