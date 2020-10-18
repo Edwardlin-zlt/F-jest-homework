@@ -6,6 +6,10 @@ jest.mock("../verify");
 jest.mock("axios");
 
 describe("register", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test("should post user when validated", async () => {
     // TODO 19: add test here
     const url = "/user";
