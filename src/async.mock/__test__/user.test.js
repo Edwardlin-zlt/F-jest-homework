@@ -27,14 +27,10 @@ describe("register", () => {
     const username = "username";
     const password = "password";
 
-    let error;
-    try {
-      await register(username, password);
-    } catch (e) {
-      error = e.message;
-    }
+    const result = register(username, password);
 
-    expect(axios.post).toHaveBeenCalledTimes(0);
-    expect(error).toEqual("wrong username or password");
+    await expect(result).rejects.toThrow(
+      new Error("wrong username or password")
+    );
   });
 });
