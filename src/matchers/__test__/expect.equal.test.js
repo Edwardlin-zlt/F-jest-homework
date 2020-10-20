@@ -41,7 +41,7 @@ describe("expect.equal", () => {
         this.flavor = flavor;
       }
     }
-    expect(new LaCroix("lemon")).toEqual(expect.any(LaCroix));
+    expect(new LaCroix("lemon")).toEqual({ flavor: "lemon" });
   });
   test("TODO 10", () => {
     // TODO 10: to replace "expected" value
