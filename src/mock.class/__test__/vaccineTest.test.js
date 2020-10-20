@@ -1,12 +1,15 @@
 import VaccineTest from "../vaccineTest";
 
+const mockAcceptInjection = jest.fn();
+const mockGetHasAntibodies = jest.fn();
+
 jest.mock("../recipient", () => {
   // mock class实现
   return jest.fn().mockImplementation(() => {
     return {
       hasAntibodies: false,
-      acceptInjection: jest.fn(),
-      getHasAntibodies: jest.fn(),
+      acceptInjection: mockAcceptInjection,
+      getHasAntibodies: mockGetHasAntibodies,
     };
   });
 });
@@ -31,17 +34,15 @@ describe("inject", () => {
 
     vaccineTest.inject();
 
-    expect(vaccineTest.recipient.acceptInjection).toHaveBeenCalledWith(
-      vaccineTest.vaccine
-    );
+    expect(mockAcceptInjection).toHaveBeenCalledWith(vaccineTest.vaccine);
   });
 });
 
 describe("test", () => {
   test("should get Success if recipient has antibodies", () => {
-    const vaccineTest = new VaccineTest();
-    vaccineTest.recipient.getHasAntibodies.mockReturnValue(true);
     // TODO 15: add test here
+    mockGetHasAntibodies.mockReturnValue(true);
+    const vaccineTest = new VaccineTest();
 
     const returnValue = vaccineTest.test();
 
@@ -51,7 +52,7 @@ describe("test", () => {
   test("should get Failed if recipient has no antibodies", () => {
     // TODO 16: add test here
     const vaccineTest = new VaccineTest();
-    vaccineTest.recipient.getHasAntibodies.mockReturnValue(false);
+    mockGetHasAntibodies.mockReturnValue(false);
 
     const returnValue = vaccineTest.test();
 
